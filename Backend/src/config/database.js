@@ -1,5 +1,7 @@
-import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
+import mysql from "mysql2/promise";
+import dotenv from "dotenv";
+
+const isProduction = process.env.NODE_ENV === "production";
 
 dotenv.config();
 
@@ -9,21 +11,24 @@ const pool = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  ssl: isProduction
+    ? { rejectUnauthorized: true }
+    : { rejectUnauthorized: false },
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
   enableKeepAlive: true,
-  keepAliveInitialDelay: 0
+  keepAliveInitialDelay: 0,
 });
 
 // Test connection
 const testConnection = async () => {
   try {
     const connection = await pool.getConnection();
-    console.log('✅ MySQL Connected Successfully');
+    console.log("MySQL Connected Successfully");
     connection.release();
   } catch (error) {
-    console.error('❌ MySQL Connection Failed:', error.message);
+    console.error("MySQL Connection Failed:", error.message);
     process.exit(1);
   }
 };

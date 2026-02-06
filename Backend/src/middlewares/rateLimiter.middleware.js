@@ -1,11 +1,9 @@
 import { redisClient } from '../config/redis.js';
 
-/**
- * Rate limiting middleware using Redis.
- * Implements sliding window algorithm for accurate rate limiting.
- * 
- * Default: 100 requests per 15 minutes per IP
- */
+  // Rate limiting middleware using Redis.
+  // Implements sliding window algorithm for accurate rate limiting. 
+  // Default: 100 requests per 15 minutes per IP
+ 
 export function rateLimiter(options = {}) {
   const {
     windowMs = 15 * 60 * 1000,  // 15 minutes
@@ -67,11 +65,9 @@ export function rateLimiter(options = {}) {
     }
   };
 }
+//  Strict rate limiter for sensitive endpoints.
+//  10 requests per minute.
 
-/**
- * Strict rate limiter for sensitive endpoints.
- * 10 requests per minute.
- */
 export function strictRateLimiter() {
   return rateLimiter({
     windowMs: 60 * 1000,  // 1 minute
@@ -80,10 +76,10 @@ export function strictRateLimiter() {
   });
 }
 
-/**
- * Lenient rate limiter for public endpoints.
- * 1000 requests per hour.
- */
+
+  // Lenient rate limiter for public endpoints.
+  // 1000 requests per hour.
+  
 export function lenientRateLimiter() {
   return rateLimiter({
     windowMs: 60 * 60 * 1000,  // 1 hour

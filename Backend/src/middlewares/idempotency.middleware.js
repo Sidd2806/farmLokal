@@ -1,15 +1,16 @@
 import { pool } from '../config/database.js';
 
-/**
- * Idempotency middleware for webhooks.
- * Prevents duplicate event processing using event_id.
- * 
- * How it works:
- * - Extracts event_id from request body
- * - Checks if event already processed in database
- * - If duplicate: returns cached response
- * - If new: allows processing and stores result
- */
+
+  // Idempotency middleware for webhooks.
+  // Prevents duplicate event processing using event_id.
+  
+  // How it works:
+  // - Extracts event_id from request body
+  // - Checks if event already processed in database
+  // - If duplicate: returns cached response
+  // - If new: allows processing and stores result
+
+  
 export async function idempotencyMiddleware(req, res, next) {
   const eventId = req.body?.event_id;
 

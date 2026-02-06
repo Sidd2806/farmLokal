@@ -47,9 +47,9 @@ export async function initDatabase() {
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `);
 
-    console.log('✅ Database tables initialized');
+    console.log('Database tables initialized');
   } catch (error) {
-    console.error('❌ Database initialization failed:', error.message);
+    console.error('Database initialization failed:', error.message);
     throw error;
   }
 }
