@@ -16,7 +16,7 @@ const pool = mysql.createPool({
   connectionLimit: 10,
 });
 
-export const testConnection = async () => {
+ const testConnection = async () => {
   const connection = await pool.getConnection();
   connection.release();
 };
