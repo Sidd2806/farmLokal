@@ -21,4 +21,4 @@ export const testConnection = async () => {
   connection.release();
 };
 
-export default pool;
+export default {pool,testConnection};
