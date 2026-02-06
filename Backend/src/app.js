@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from 'dotenv';
+dotenv.config();
 import { testConnection } from './config/database.js';
 import { connectRedis } from './config/redis.js';
 import externalRoutes from './routes/external.routes.js';
@@ -8,7 +9,6 @@ import webhookRoutes from './routes/webhook.routes.js';
 import productRoutes from './routes/product.routes.js';
 import metricsRoutes from './routes/metrics.routes.js';
 import healthRoutes from "./routes/health.routes.js";
-dotenv.config();
 
 const app = express();
 app.use(express.json());
