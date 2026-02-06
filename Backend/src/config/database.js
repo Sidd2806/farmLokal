@@ -1,22 +1,19 @@
 import mysql from "mysql2/promise";
 
-const isProduction = process.env.NODE_ENV === "production";
-
-export const pool = mysql.createPool({
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 
-  ssl: isProduction
-    ? { rejectUnauthorized: true }
-    : { rejectUnauthorized: false },
+  ssl: {
+    rejectUnauthorized: true,
+  },
 
   waitForConnections: true,
   connectionLimit: 10,
 });
-
 
 // Test connection
 const testConnection = async () => {
