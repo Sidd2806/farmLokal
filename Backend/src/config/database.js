@@ -7,24 +7,18 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 
+  // REQUIRED for Aiven MySQL
   ssl: {
-    rejectUnauthorized: true,
+    rejectUnauthorized: false,
   },
 
   waitForConnections: true,
   connectionLimit: 10,
 });
 
-// Test connection
-const testConnection = async () => {
-  try {
-    const connection = await pool.getConnection();
-    console.log("MySQL Connected Successfully");
-    connection.release();
-  } catch (error) {
-    console.error("MySQL Connection Failed:", error.message);
-    process.exit(1);
-  }
+export const testConnection = async () => {
+  const connection = await pool.getConnection();
+  connection.release();
 };
 
-export { pool, testConnection };
+export default pool;
